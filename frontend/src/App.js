@@ -60,7 +60,7 @@ function App() {
             </Col>
             <Col md={6}>
               <div className="preview-container textarea border-0 shadow rounded p-3">
-                <Preview isLoadingFormatted={isLoadingFormatted} isLoadingRaw={isLoadingRaw} html={viewMode === 'preview' ? formattedHtml?.html : rawHtml?.html || ''} />
+                <Preview isLoadingFormatted={isLoadingFormatted} isLoadingRaw={isLoadingRaw} html={viewMode === 'preview' ? isErrorFormatted ? '' : formattedHtml?.html : isErrorRaw ? '' : rawHtml?.html || ''} />
               </div>
             </Col>
           </Row>
