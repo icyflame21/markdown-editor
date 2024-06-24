@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from './features/apiSlice';
 import markdownSlice from './features/markdownSlice';
+import { markDownApi } from './features/markDownApi';
 
 const store = configureStore({
     reducer: {
-        [apiSlice.reducerPath]: apiSlice.reducer,
+        [markDownApi.reducerPath]: markDownApi.reducer,
         markdown: markdownSlice,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(apiSlice.middleware),
+        getDefaultMiddleware().concat(markDownApi.middleware),
 });
 
 export default store;

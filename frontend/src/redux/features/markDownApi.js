@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const baseURL = process.env.REACT_APP_BACKEND_URL;
 
-export const apiSlice = createApi({
+export const markDownApi = createApi({
   reducerPath: 'markDownApi',
   baseQuery: fetchBaseQuery({
     baseUrl: baseURL,
@@ -19,4 +19,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useConvertMarkdownQuery, useConvertToRawQuery } = apiSlice;
+export const { useConvertMarkdownQuery, useConvertToRawQuery } = markDownApi;

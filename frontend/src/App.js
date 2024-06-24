@@ -1,77 +1,66 @@
 import React, { useCallback, useEffect } from 'react';
 import './App.css';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { debounce } from 'lodash';
+import { Slide, toast } from 'react-toastify';
+import { ErrorBoundary } from 'react-error-boundary';
+
 import Editor from './components/Editor';
 import Preview from './components/Preview';
-import { useDispatch, useSelector } from 'react-redux';
-import { setMarkdown } from './redux/features/markdownSlice';
-import 'react-loading-skeleton/dist/skeleton.css';
-import { ErrorBoundary } from 'react-error-boundary';
-import 'react-toastify/dist/ReactToastify.css';
-import { Slide, toast } from 'react-toastify';
 import Navbar from './components/Navbar';
-import { useConvertMarkdownQuery, useConvertToRawQuery } from './redux/features/apiSlice';
-import { debounce } from 'lodash';
+import { setMarkdown } from './redux/features/markdownSlice';
+import { useConvertMarkdownQuery, useConvertToRawQuery } from './redux/features/markDownApi';
+
+import 'react-toastify/dist/ReactToastify.css';
+import FallbackComponent from './components/Fallback';
 
 function App() {
   const dispatch = useDispatch();
   const { markdown, viewMode } = useSelector(state => state.markdown);
 
-  const { data: formattedHtml, isLoading: isLoadingFormatted, isError: isErrorFormatted, error: ErrorFormatted } = useConvertMarkdownQuery(markdown);
-  const { data: rawHtml, isLoading: isLoadingRaw, isError: isErrorRaw, error: ErrorRaw } = useConvertToRawQuery(markdown);
-
+  const { data: formattedHtml, isLoading: isLoadingFormatted, isError: isErrorFormatted, error: errorFormatted } = useConvertMarkdownQuery(markdown);
+  const { data: rawHtml, isLoading: isLoadingRaw, isError: isErrorRaw, error: errorRaw } = useConvertToRawQuery(markdown);
 
   const debouncedMarkdownConversion = useCallback(debounce((value) => {
     dispatch(setMarkdown(value));
-  }, 100), [dispatch]);
+  }, 300), [dispatch]);
 
   const handleMarkdownChange = (event) => {
     debouncedMarkdownConversion(event.target.value);
   };
 
-
-  const downloadMarkdownFile = () => {
-    const markdownContent = markdown;
-    const blob = new Blob([markdownContent], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'markdown-file.md';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const showToast = (message) => {
+    if (message !== "Markdown content is required") {
+      toast.error(message, {
+        theme: 'colored',
+        transition: Slide,
+        className: 'gap-3',
+        toastId: 1
+      });
+    }
   };
 
-  const showToast = (message) => {
-    toast.error(message, {
-      theme: 'colored',
-      transition: Slide,
-      className: 'gap-3',
-      toastId: 1
-    });
-  }
   useEffect(() => {
     if (isErrorFormatted) {
-      showToast(ErrorFormatted.error || ErrorFormatted.data.error || '')
+      showToast(errorFormatted?.error || errorFormatted?.data?.error || 'Error in formatted HTML');
     } else if (isErrorRaw) {
-      showToast(ErrorRaw.error || ErrorRaw.data.error || '')
+      showToast(errorRaw?.error || errorRaw?.data?.error || 'Error in raw HTML');
     }
-  }, [isErrorFormatted, isErrorRaw]);
+  }, [isErrorFormatted, errorFormatted, isErrorRaw, errorRaw]);
 
   return (
     <div className="App">
-      <ErrorBoundary FallbackComponent={() => <div>Something went wrong.</div>}>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
         <Navbar />
         <Container fluid>
-          <Row className='g-3'>
+          <Row className="g-3">
             <Col md={6}>
               <Editor markdown={markdown} onChange={handleMarkdownChange} />
             </Col>
             <Col md={6}>
               <div className="preview-container textarea border-0 shadow rounded p-3">
-                <Preview isLoadingFormatted={isLoadingFormatted} isLoadingRaw={isLoadingRaw} html={viewMode === 'preview' ? formattedHtml?.html : rawHtml ? rawHtml?.html : ''} />
+                <Preview isLoadingFormatted={isLoadingFormatted} isLoadingRaw={isLoadingRaw} html={viewMode === 'preview' ? formattedHtml?.html : rawHtml?.html || ''} />
               </div>
             </Col>
           </Row>
