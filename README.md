@@ -5,10 +5,14 @@ A real-time Markdown editor with live preview, built with Node.js and React, sty
 
 ## Features
 - Markdown editor with real-time preview
-- Robust Markdown to HTML conversion
-- Error handling
+- Raw and formatted view modes
+- Robust Markdown to HTML conversion via backend
+- Error handling with `react-error-boundary`
 - Backend processing with Node.js
 - Modern minimalist UI using Bootstrap
+- State management with Redux Toolkit and RTK Query
+- Smooth progressive loading UI with `react-loading-skeleton`
+- Safe HTML rendering with `dompurify` and `react-html-parser`
 
 ## Setup
 
@@ -25,6 +29,7 @@ A real-time Markdown editor with live preview, built with Node.js and React, sty
 ## Usage
 1. Open `http://localhost:3000` in your browser.
 2. Type Markdown syntax in the editor and see the live HTML preview.
+3. Toggle between raw and formatted views using the buttons.
 
 ## Contributing
 Feel free to submit pull requests and issues.

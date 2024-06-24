@@ -1,0 +1,52 @@
+body {
+  background-color: #d5f3ff;
+}
+
+.editor-container,
+.preview-container {
+  height: 100%;
+}
+
+.textarea {
+  height: 100%;
+  border: none;
+  box-shadow: none;
+  resize: none;
+  font-family: monospace;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.preview-container {
+  background-color: #f5f8fe;
+  overflow-y: auto;
+  height: calc(100vh - 70px - 2rem);
+}
+
+.editor-container {
+  height: calc(100vh - 70px - 2rem);
+}
+
+.logo_item {
+  mix-blend-mode: multiply;
+  width: 70px;
+}
+
+.gray1 {
+  color: #333333 !important;
+}
+.orange-text-gradient {
+  background: #f12711; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #f12711,
+    #f5af19
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #f12711,
+    #f5af19
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
