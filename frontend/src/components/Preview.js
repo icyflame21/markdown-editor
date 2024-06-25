@@ -51,7 +51,7 @@ function Preview({ formattedHtml, isLoading, rawHtml }) {
             </>
           )}
           {!isLoading && (
-            <pre style={{ fontSize: fontSizes.bodyText }} className='gray1'>
+            <pre style={{ fontSize: fontSizes.bodyText, textWrap: 'wrap' }} className='gray1 w-100' >
               {rawHtml}
             </pre>
           )}
