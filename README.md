@@ -27,7 +27,7 @@ Experience the power of our real-time Markdown editor, meticulously crafted with
 3. Start the React application: `npm start` (Default port: 4000)
 
 #### Usage
-1. Access the editor at `http://localhost:3000` in your preferred web browser.
+1. Access the editor at `http://localhost:4000` in your preferred web browser.
 2. Begin typing Markdown syntax to witness real-time HTML preview updates.
 3. Easily toggle between raw Markdown and formatted HTML views using intuitive controls.
 
