@@ -8,21 +8,13 @@ exports.convertMarkdown = (req, res, next) => {
       throw new Error('Markdown content is required');
     }
     const html = marked(markdown);
-    res.json({ html });
+    const raw_html = marked.parse(markdown);
+    res.json({
+      formatted: html,
+      raw: raw_html
+    });
   } catch (error) {
     next(error);
   }
 };
 
-exports.convertToRaw = (req, res, next) => {
-  try {
-    const { markdown } = req.query;
-    if (!markdown) {
-      throw new Error('Markdown content is required');
-    }
-    const html = marked.parse(markdown);
-    res.json({ html });
-  } catch (error) {
-    next(error);
-  }
-};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Container, Image } from 'react-bootstrap';
-import Logo from '../assets/logo.webp';
+import Logo from 'assets/logo.webp';
 
 const NavbarComponent = () => (
   <Navbar expand="lg">

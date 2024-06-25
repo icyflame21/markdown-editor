@@ -13,10 +13,7 @@ export const markDownApi = createApi({
     convertMarkdown: builder.query({
       query: (markdown) => `/convert?markdown=${encodeURIComponent(markdown)}`,
     }),
-    convertToRaw: builder.query({
-      query: (markdown) => `/raw?markdown=${encodeURIComponent(markdown)}`,
-    }),
   }),
 });
 
-export const { useConvertMarkdownQuery, useConvertToRawQuery } = markDownApi;
+export const { useConvertMarkdownQuery } = markDownApi;
